@@ -1,10 +1,8 @@
-version: "3.9"
-
 services:
 
   mongodb:
-    image: mongo:8
-    container_name: mongodb
+    image: mongo:7
+    container_name: mongodb-crm-ai
 
     restart: unless-stopped
 
@@ -19,7 +17,7 @@ services:
       - mongo_data:/data/db
 
     networks:
-      - mern-network
+      - crm-ai-network
 
   mongo-express:
     image: mongo-express
@@ -40,13 +38,18 @@ services:
 
       ME_CONFIG_MONGODB_SERVER: mongodb
 
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin
+
+      ME_CONFIG_MONGODB_PORT: 27017
+
     networks:
-      - mern-network
+      - crm-ai-network
 
   backend:
 
     build:
-      context: ./backend
+      context: ./crm-ai-backend
       dockerfile: Dockerfile
 
     container_name: backend
@@ -63,19 +66,19 @@ services:
       - .env
 
     environment:
-      MONGO_URI: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:${MONGO_PORT}/${MONGO_DATABASE}?authSource=admin
+      MONGO_URI: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017/${MONGO_DATABASE}?authSource=admin
 
     volumes:
-      - ./backend:/app
-      - /app/node_modules
+        - ./crm-ai-backend:/app
+        - /app/node_modules
 
     networks:
-      - mern-network
+      - crm-ai-network
 
   frontend:
 
     build:
-      context: ./frontend
+      context: ./crm-ai-ui
       dockerfile: Dockerfile
 
     container_name: frontend
@@ -92,15 +95,15 @@ services:
       - .env
 
     volumes:
-      - ./frontend:/app
+      - ./crm-ai-ui:/app
       - /app/node_modules
 
     networks:
-      - mern-network
+      - crm-ai-network
 
 volumes:
   mongo_data:
 
 networks:
-  mern-network:
+  crm-ai-network:
     driver: bridge
