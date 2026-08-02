@@ -38,6 +38,9 @@ app.get("/api/health", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/lead", authRoutes);
+app.use("/api/contact", authRoutes);
+app.use("/api/notes", authRoutes);
+app.use("/api/tasks", authRoutes);
 /* --------------------- Error handling (last) --------------------- */
 
 app.use(notFound);
