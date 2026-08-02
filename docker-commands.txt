@@ -1,0 +1,341 @@
+# 🐳 Docker Commands - MERN CRM
+
+## 1. Build all images
+
+```bash
+docker compose build
+```
+
+---
+
+## 2. Build without cache
+
+```bash
+docker compose build --no-cache
+```
+
+---
+
+## 3. Start all containers
+
+```bash
+docker compose up
+```
+
+---
+
+## 4. Start in detached mode
+
+```bash
+docker compose up -d
+```
+
+---
+
+## 5. Rebuild and start
+
+```bash
+docker compose up --build
+```
+
+---
+
+## 6. Stop containers
+
+```bash
+docker compose stop
+```
+
+---
+
+## 7. Restart containers
+
+```bash
+docker compose restart
+```
+
+---
+
+## 8. Stop and remove containers
+
+```bash
+docker compose down
+```
+
+---
+
+## 9. Stop and remove everything (including database)
+
+```bash
+docker compose down -v
+```
+
+---
+
+## 10. Remove unused Docker resources
+
+```bash
+docker system prune -a
+```
+
+---
+
+## 11. View running containers
+
+```bash
+docker ps
+```
+
+---
+
+## 12. View all containers
+
+```bash
+docker ps -a
+```
+
+---
+
+## 13. View Docker images
+
+```bash
+docker images
+```
+
+---
+
+## 14. View Docker volumes
+
+```bash
+docker volume ls
+```
+
+---
+
+## 15. View Docker networks
+
+```bash
+docker network ls
+```
+
+---
+
+## 16. View logs of all services
+
+```bash
+docker compose logs
+```
+
+---
+
+## 17. Follow logs in real time
+
+```bash
+docker compose logs -f
+```
+
+---
+
+## 18. Backend logs only
+
+```bash
+docker compose logs -f backend
+```
+
+---
+
+## 19. Frontend logs only
+
+```bash
+docker compose logs -f frontend
+```
+
+---
+
+## 20. MongoDB logs
+
+```bash
+docker compose logs -f mongodb
+```
+
+---
+
+## 21. Open a shell inside the backend
+
+```bash
+docker compose exec backend sh
+```
+
+or
+
+```bash
+docker compose exec backend bash
+```
+
+---
+
+## 22. Open a shell inside the frontend
+
+```bash
+docker compose exec frontend sh
+```
+
+---
+
+## 23. Open MongoDB shell
+
+```bash
+docker compose exec mongodb mongosh
+```
+
+---
+
+## 24. Install a new backend package
+
+```bash
+docker compose exec backend npm install <package>
+```
+
+Example
+
+```bash
+docker compose exec backend npm install express-validator
+```
+
+---
+
+## 25. Install a frontend package
+
+```bash
+docker compose exec frontend npm install <package>
+```
+
+Example
+
+```bash
+docker compose exec frontend npm install axios
+```
+
+---
+
+## 26. Run backend tests
+
+```bash
+docker compose exec backend npm test
+```
+
+---
+
+## 27. Run frontend tests
+
+```bash
+docker compose exec frontend npm test
+```
+
+---
+
+## 28. Run backend seed
+
+```bash
+docker compose exec backend npm run seed
+```
+
+---
+
+## 29. Execute any npm script
+
+```bash
+docker compose exec backend npm run <script>
+
+docker compose exec frontend npm run <script>
+```
+
+---
+
+## 30. Check container resource usage
+
+```bash
+docker stats
+```
+
+---
+
+## 31. Remove unused images
+
+```bash
+docker image prune
+```
+
+---
+
+## 32. Remove unused volumes
+
+```bash
+docker volume prune
+```
+
+---
+
+## 33. Remove unused networks
+
+```bash
+docker network prune
+```
+
+---
+
+# First time setup
+
+```bash
+git clone <repository>
+
+cd project
+
+cp .env.example .env
+
+docker compose build
+
+docker compose up -d
+```
+
+---
+
+# Daily workflow
+
+```bash
+git pull
+
+docker compose up -d
+```
+
+---
+
+# After changing Dockerfile
+
+```bash
+docker compose up --build
+```
+
+---
+
+# After changing docker-compose.yml
+
+```bash
+docker compose down
+
+docker compose up --build
+```
+
+---
+
+# Complete clean reinstall
+
+```bash
+docker compose down -v
+
+docker system prune -a
+
+docker compose build
+
+docker compose up -d
+```
