@@ -37,6 +37,7 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/lead", authRoutes);
 /* --------------------- Error handling (last) --------------------- */
 
 app.use(notFound);
