@@ -6,6 +6,7 @@ import morgan from "morgan";
 import { connectDB } from "./config/db.js";
 import { notFound, errorHandler } from "./middleware/error.middleware.js";
 import authRoutes from "./routes/auth.routes";
+import aiRoutes from "./routes/ai.routes";
 
 const app = express();
 
@@ -41,6 +42,8 @@ app.use("/api/lead", authRoutes);
 app.use("/api/contact", authRoutes);
 app.use("/api/notes", authRoutes);
 app.use("/api/tasks", authRoutes);
+app.use("/api/ai", aiRoutes);
+
 /* --------------------- Error handling (last) --------------------- */
 
 app.use(notFound);
