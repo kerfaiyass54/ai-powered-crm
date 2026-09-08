@@ -1,0 +1,626 @@
+/* =========================================================
+   APPLICATION SHELL
+   ========================================================= */
+
+.app-shell {
+    position: relative;
+
+    min-height: 100vh;
+    width: 100%;
+
+    display: flex;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.app-sidebar {
+    position: fixed;
+
+    top: 18px;
+    left: 18px;
+    bottom: 18px;
+
+    width: 240px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 18px 14px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 26px;
+
+    background:
+            radial-gradient(
+                    circle at 20% 0%,
+                    rgba(124, 92, 255, 0.15),
+                    transparent 32%
+            ),
+            radial-gradient(
+                    circle at 100% 100%,
+                    rgba(34, 211, 238, 0.08),
+                    transparent 35%
+            ),
+            #0c0e12;
+
+    box-shadow:
+            0 30px 80px rgba(0, 0, 0, 0.22),
+            inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    color: var(--sidebar-text);
+
+    overflow: hidden;
+
+    z-index: 100;
+
+    animation: sidebarEnter 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/*
+ * Little ambient light inside the sidebar.
+ */
+.app-sidebar::before {
+    content: '';
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    top: -80px;
+    right: -70px;
+
+    border-radius: 50%;
+
+    background: var(--accent);
+
+    filter: blur(80px);
+
+    opacity: 0.16;
+
+    pointer-events: none;
+
+    animation: ambientGlow 6s ease-in-out infinite alternate;
+}
+
+
+/*
+ * Subtle vertical line.
+ */
+.app-sidebar::after {
+    content: '';
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 1px;
+    height: 100%;
+
+    background:
+            linear-gradient(
+                    to bottom,
+                    transparent,
+                    rgba(255, 255, 255, 0.08),
+                    transparent
+            );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.app-logo {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    padding: 8px;
+
+    font-family: 'Space Grotesk', sans-serif;
+
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+
+    z-index: 2;
+}
+
+.app-logo-mark {
+    position: relative;
+
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 13px;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #e9e7ff
+            );
+
+    color: #17131f;
+
+    box-shadow:
+            0 8px 25px rgba(124, 92, 255, 0.25);
+
+    transition:
+            transform 250ms ease,
+            box-shadow 250ms ease;
+}
+
+.app-logo:hover .app-logo-mark {
+    transform: rotate(-7deg) scale(1.08);
+
+    box-shadow:
+            0 12px 35px rgba(124, 92, 255, 0.4);
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.app-navigation {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+
+    margin-top: 46px;
+
+    z-index: 2;
+}
+
+.app-navigation a {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    min-height: 46px;
+
+    padding: 0 14px;
+
+    border-radius: 14px;
+
+    color: var(--sidebar-muted);
+
+    font-size: 14px;
+    font-weight: 500;
+
+    overflow: hidden;
+
+    transition:
+            color 220ms ease,
+            background 220ms ease,
+            transform 220ms ease;
+}
+
+
+/*
+ * Hover light sweep.
+ */
+.app-navigation a::before {
+    content: '';
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+            linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.07),
+                    transparent
+            );
+
+    opacity: 0;
+
+    transform: translateX(-20px);
+
+    transition:
+            opacity 220ms ease,
+            transform 220ms ease;
+}
+
+
+/*
+ * Active indicator.
+ */
+.app-navigation a::after {
+    content: '';
+
+    position: absolute;
+
+    left: 0;
+
+    width: 3px;
+    height: 18px;
+
+    border-radius: 0 10px 10px 0;
+
+    background:
+            linear-gradient(
+                    to bottom,
+                    var(--accent-cyan),
+                    var(--accent)
+            );
+
+    box-shadow:
+            0 0 15px rgba(124, 92, 255, 0.8);
+
+    opacity: 0;
+
+    transform: scaleY(0.3);
+
+    transition:
+            opacity 220ms ease,
+            transform 220ms ease;
+}
+
+.app-navigation a:hover {
+    color: #ffffff;
+
+    background: rgba(255, 255, 255, 0.055);
+
+    transform: translateX(3px);
+}
+
+.app-navigation a:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.app-navigation a.active {
+    color: #ffffff;
+
+    background:
+            linear-gradient(
+                    90deg,
+                    rgba(124, 92, 255, 0.18),
+                    rgba(124, 92, 255, 0.055)
+            );
+
+    box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.app-navigation a.active::after {
+    opacity: 1;
+    transform: scaleY(1);
+}
+
+
+/* =========================================================
+   SIDEBAR BOTTOM
+   ========================================================= */
+
+.app-sidebar-bottom {
+    position: relative;
+
+    margin-top: auto;
+
+    padding-top: 15px;
+
+    z-index: 2;
+}
+
+.app-sidebar-bottom::before {
+    content: '';
+
+    position: absolute;
+
+    top: 0;
+    left: 8px;
+    right: 8px;
+
+    height: 1px;
+
+    background:
+            linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.08),
+                    transparent
+            );
+}
+
+.app-sidebar-bottom a {
+    display: flex;
+    align-items: center;
+
+    min-height: 44px;
+
+    padding: 0 14px;
+
+    border-radius: 13px;
+
+    color: var(--sidebar-muted);
+
+    font-size: 14px;
+
+    transition:
+            background 220ms ease,
+            color 220ms ease,
+            transform 220ms ease;
+}
+
+.app-sidebar-bottom a:hover {
+    color: #ffffff;
+
+    background: rgba(255, 255, 255, 0.055);
+
+    transform: translateX(3px);
+}
+
+.app-sidebar-bottom a.active {
+    color: #ffffff;
+
+    background:
+            linear-gradient(
+                    90deg,
+                    rgba(124, 92, 255, 0.18),
+                    rgba(124, 92, 255, 0.05)
+            );
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.app-main {
+    position: relative;
+
+    width: calc(100% - 276px);
+
+    min-height: 100vh;
+
+    margin-left: 276px;
+
+    padding: 46px 48px;
+
+    animation:
+            pageEnter 650ms cubic-bezier(0.22, 1, 0.36, 1);
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   PAGE DEFAULT STYLING
+   ========================================================= */
+
+.app-main h1 {
+    margin: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+
+    font-size: clamp(32px, 4vw, 52px);
+
+    font-weight: 700;
+
+    letter-spacing: -0.055em;
+
+    line-height: 1.05;
+
+    background:
+            linear-gradient(
+                    110deg,
+                    #111318 20%,
+                    #535762 70%,
+                    #7c5cff
+            );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+.app-main p {
+    color: var(--muted);
+
+    font-size: 15px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes sidebarEnter {
+    from {
+        opacity: 0;
+
+        transform:
+                translateX(-35px)
+                scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+                translateX(0)
+                scale(1);
+    }
+}
+
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+
+        transform:
+                translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+                translateY(0);
+    }
+}
+
+@keyframes ambientGlow {
+    from {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.12;
+    }
+
+    to {
+        transform: translate(-25px, 25px) scale(1.25);
+        opacity: 0.22;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+    .app-sidebar {
+        width: 76px;
+
+        padding: 18px 10px;
+    }
+
+    .app-logo {
+        justify-content: center;
+    }
+
+    .app-logo span:last-child {
+        display: none;
+    }
+
+    .app-navigation a,
+    .app-sidebar-bottom a {
+        justify-content: center;
+
+        padding: 0;
+    }
+
+    .app-navigation a {
+        font-size: 0;
+    }
+
+    .app-sidebar-bottom a {
+        font-size: 0;
+    }
+
+    .app-main {
+        width: calc(100% - 100px);
+
+        margin-left: 100px;
+
+        padding: 35px 25px;
+    }
+}
+
+@media (max-width: 600px) {
+    .app-sidebar {
+        top: auto;
+        right: 12px;
+        bottom: 12px;
+        left: 12px;
+
+        width: auto;
+        height: 68px;
+
+        flex-direction: row;
+
+        padding: 8px;
+
+        border-radius: 20px;
+    }
+
+    .app-logo,
+    .app-sidebar-bottom {
+        display: none;
+    }
+
+    .app-navigation {
+        width: 100%;
+
+        flex-direction: row;
+
+        justify-content: space-around;
+
+        margin: 0;
+    }
+
+    .app-navigation a {
+        flex: 1;
+
+        min-height: 50px;
+    }
+
+    .app-navigation a::after {
+        left: 50%;
+        bottom: 0;
+
+        top: auto;
+
+        width: 20px;
+        height: 3px;
+
+        transform:
+                translateX(-50%)
+                scaleX(0.3);
+    }
+
+    .app-navigation a.active::after {
+        transform:
+                translateX(-50%)
+                scaleX(1);
+    }
+
+    .app-main {
+        width: 100%;
+
+        margin-left: 0;
+
+        padding:
+                30px
+                20px
+                110px;
+    }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+    }
+}

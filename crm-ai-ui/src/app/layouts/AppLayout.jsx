@@ -1,31 +1,58 @@
-import { Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 
 function AppLayout() {
     return (
         <div className="app-shell">
+
             <aside className="app-sidebar">
+
                 <div className="app-logo">
                     <span className="app-logo-mark">✦</span>
                     <span>CRM AI</span>
                 </div>
 
                 <nav className="app-navigation">
-                    <a href="/">Dashboard</a>
-                    <a href="/leads">Leads</a>
-                    <a href="/pipeline">Pipeline</a>
-                    <a href="/contacts">Contacts</a>
-                    <a href="/follow-ups">Follow-ups</a>
-                    <a href="/notes">Notes</a>
+
+                    <NavLink to="/" end>
+                        Dashboard
+                    </NavLink>
+
+                    <NavLink to="/leads">
+                        Leads
+                    </NavLink>
+
+                    <NavLink to="/pipeline">
+                        Pipeline
+                    </NavLink>
+
+                    <NavLink to="/contacts">
+                        Contacts
+                    </NavLink>
+
+                    <NavLink to="/follow-ups">
+                        Follow-ups
+                    </NavLink>
+
+                    <NavLink to="/notes">
+                        Notes
+                    </NavLink>
+
                 </nav>
 
                 <div className="app-sidebar-bottom">
-                    <a href="/settings">Settings</a>
+
+                    <NavLink to="/settings">
+                        Settings
+                    </NavLink>
+
                 </div>
+
             </aside>
 
             <main className="app-main">
                 <Outlet />
             </main>
+
         </div>
     );
 }
